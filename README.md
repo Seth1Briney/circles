@@ -12,4 +12,5 @@ recommended python 10.4
 
 use:
 > pip install -e circles
+
 to install as module
