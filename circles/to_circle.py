@@ -106,6 +106,32 @@ def append_position_encodings_vectorized(X,wrap=False,r=2):
 		),axis=1)
 	return X
 
+def append_all_position_encodings(X,wrap=False):
+	L = X.shape[0]
+
+	v = np.arange(0,L,1).reshape(L,1)
+
+	if wrap:
+		# L-1 -> 2pi
+		# 2pi (L-1) / T = 2pi
+		# T = (L-1)
+		T = np.arange(2,L+1,1)
+	else:
+		# L-1 -> pi
+		# 2pi (L-1) / T = pi
+		# T = 2(L-1)
+		T = np.arange(2,2*(L-1)+1,1)
+
+	T = T[::-1]
+
+	t = (v / T) * (2*pi)
+
+	X = np.concatenate(( X , \
+		np.sin(t), \
+		np.cos(t)  \
+		),axis=1)
+	return X
+
 def print_array(x):
 	# 2d array, x
 	length = 5
