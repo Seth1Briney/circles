@@ -1,2 +1,2 @@
-from . import to_circle
+from .to_circle import *
 
