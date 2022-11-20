@@ -54,10 +54,10 @@ def parse_dtime_strings(dtime_strings,year):
 	return dtime_strings
 
 def timestamp_to_nums(timestamp):
+	tod = timestamp.hour + timestamp.minute/60
 	doy = timestamp.day_of_year
 	dow = timestamp.day_of_week
-	tod = timestamp.hour + timestamp.minute/60
-	return doy,dow,tod
+	return tod,doy,dow
 
 def timestamps_to_nums(timestamps):
 	timestamps = np.array(timestamps).reshape(-1,)
@@ -70,9 +70,9 @@ def timestamps_to_circles(timestamps):
 	timestamps = np.array(timestamps).reshape(-1,)
 	nums = timestamps_to_nums(timestamps)
 	circles = np.empty((nums.shape[0],6))
-	circles[:,0:2] = map_to_circle(nums[:,0],365)
-	circles[:,2:4] = map_to_circle(nums[:,1],7)
-	circles[:,4:6] = map_to_circle(nums[:,2],24)
+	circles[:,0:2] = map_to_circle(nums[:,0],24)
+	circles[:,2:4] = map_to_circle(nums[:,1],365)
+	circles[:,4:6] = map_to_circle(nums[:,2],7)
 	return circles
 
 def strings_to_circles(strings,year):
